@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: delivery-demo
-          image: docker.io/smini/delivery-pipeline-demo@sha256:adf7d03d27803856ec4bb49ac268c1e11bcf3cf89b6950e0019d61467e68fd8d
+          image: docker.io/smini/delivery-pipeline-demo@sha256:33eef84e8c41ac26054eee2dd22b9e80abc940ed5528ee73317b113903b90d5e
           ports:
             - name: http
               containerPort: 8080
