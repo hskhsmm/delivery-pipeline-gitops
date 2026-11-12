@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery-demo
+  template:
+    metadata:
+      labels:
+        app: delivery-demo
+    spec:
+      containers:
+        - name: delivery-demo
+          image: docker.io/smini/delivery-pipeline-demo@sha256:adf7d03d27803856ec4bb49ac268c1e11bcf3cf89b6950e0019d61467e68fd8d
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              memory: 192Mi
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
