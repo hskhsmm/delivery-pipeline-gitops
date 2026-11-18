@@ -4,14 +4,6 @@ metadata:
   name: delivery-demo
 spec:
   replicas: 1
-  # 기존 Pod 하나를 유지한 채 새 Pod의 준비 상태를 확인한다.
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 0
-      maxSurge: 1
-  # 샌드박스 실습에서 실패 상태를 관찰할 시간을 줄인다.
-  progressDeadlineSeconds: 60
   selector:
     matchLabels:
       app: delivery-demo
@@ -28,9 +20,7 @@ spec:
               containerPort: 8080
           readinessProbe:
             httpGet:
-              # 실험용으로 존재하지 않는 경로를 지정해 HTTP 404를 발생시킨다.
-              # 복구 PR에서는 이 커밋을 revert해 /health로 되돌린다.
-              path: /readiness-failure-demo
+              path: /health
               port: http
           resources:
             requests:
